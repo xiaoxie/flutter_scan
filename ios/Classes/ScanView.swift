@@ -107,7 +107,9 @@ public class ScanView: UIView,AVCaptureMetadataOutputObjectsDelegate,FlutterPlug
       self.session!.sessionPreset = AVCaptureSession.Preset.high;
       self.setScanArea();
 //      self.session!.commitConfiguration();
-      self.session!.startRunning();
+        DispatchQueue.global(qos: .background).async {
+            self.session!.startRunning();
+        }
 //      self.queue!.async {
 //        self.session!.startRunning();
 //      }
@@ -308,13 +310,17 @@ public class ScanView: UIView,AVCaptureMetadataOutputObjectsDelegate,FlutterPlug
   
   private func resume() {
     if !self.isSessionRun {
-      self.session?.startRunning();
+        DispatchQueue.global(qos: .background).async {
+            self.session?.startRunning();
+        }
     }
   }
   
   private func pause() {
     if self.isSessionRun {
-      self.session?.stopRunning();
+        DispatchQueue.global(qos: .background).async {
+            self.session?.stopRunning();
+        }
     }
   }
   
